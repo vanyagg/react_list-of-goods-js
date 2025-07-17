@@ -37,7 +37,7 @@ function getPreparedGoods(goods, { sortField, isReversed }) {
     });
   }
 
-  if (isReversed === true) {
+  if (isReversed) {
     return preparedGoods.reverse();
   }
 
@@ -59,7 +59,7 @@ export const App = () => {
           type="button"
           onClick={() => setSortField(SORT_FIELD_ALPHABET)}
           className={classNames('button', 'is-info', {
-            'is-light': sortField === SORT_FIELD_ALPHABET,
+            'is-light': sortField !== SORT_FIELD_ALPHABET,
           })}
         >
           Sort alphabetically
@@ -69,7 +69,7 @@ export const App = () => {
           type="button"
           onClick={() => setSortField(SORT_FIELD_LENGTH)}
           className={classNames('button', 'is-success', {
-            'is-light': sortField === SORT_FIELD_LENGTH,
+            'is-light': sortField !== SORT_FIELD_LENGTH,
           })}
         >
           Sort by length
@@ -79,7 +79,7 @@ export const App = () => {
           type="button"
           onClick={() => setIsReversed(prevState => !prevState)}
           className={classNames('button', 'is-warning', {
-            'is-light': false,
+            'is-light': !isReversed,
           })}
         >
           Reverse
@@ -101,7 +101,9 @@ export const App = () => {
 
       <ul>
         {visibleGoods.map(good => (
-          <li key={good}>{good}</li>
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
         ))}
       </ul>
     </div>
